@@ -76,16 +76,15 @@ function App() {
     };
 
     try {
-      const geminiResponse = await getLeadRecommendations(readableData, newScoreResult);
-      const parsedRecommendations: Recommendations = JSON.parse(geminiResponse);
-      setRecommendations(parsedRecommendations);
+      const recommendations = await getLeadRecommendations(readableData, newScoreResult);
+      setRecommendations(recommendations);
 
       const newHistoricLead: HistoricLead = {
         id: new Date().toISOString(),
         formData: data,
         readableData: readableData,
         scoreResult: newScoreResult,
-        recommendations: parsedRecommendations,
+        recommendations: recommendations,
       };
       setLeadHistory(prev => [newHistoricLead, ...prev]);
 
